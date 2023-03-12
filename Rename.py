@@ -61,7 +61,7 @@ if len(skipList) > 0:
 if len(failureList) > 0:
     if message != "":
         message += "\n\n"
-        message += str(len(failureList)) + " document" + ("" if len(failureList) == 1 else "s") + " failed."
+    message += str(len(failureList)) + " document" + ("" if len(failureList) == 1 else "s") + " failed."
 if message == "":
     message = "No documents found."
 
