@@ -26,6 +26,10 @@ projectPath = os.path.join(parentFolder, folderName)
 projectImportPath = os.path.join(projectPath, IMPORT_FOLDER_NAME)
 projectExportPath = os.path.join(projectPath, EXPORT_FOLDER_NAME)
 
+# Create export folder if it doesn't already exist
+if not os.path.isdir(projectExportPath):
+    os.mkdir(projectExportPath)
+
 # Get filenames from import directory
 filenames = os.listdir(projectImportPath)
 
@@ -46,7 +50,7 @@ for filename in filenames:
     if os.path.splitext(filename)[1].lower() == ".docx":
         try:
             document = docx2txt.process(os.path.join(projectImportPath, filename)).lower()
-            if "theme 2 documentation" in document:
+            if "theme 2 documentation template" in document[:300] or "theme 2 documentation extra credit checklist" in document[:300]:
                 docCheckList.append(file)
                 continue
         except:
@@ -60,6 +64,9 @@ for filename in filenames:
 
 for file in renameList:
     try:
+        # while os.path.isfile(file["newPath"]):
+        #     parts = os.path.splitext(file["newPath"])
+        #     file["newPath"] = os.path.join(parts[0], "?", parts[1])
         shutil.copy2(file["oldPath"], file["newPath"])
     except:
         failureList.append(file)
